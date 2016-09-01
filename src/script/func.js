@@ -11,16 +11,16 @@ closure()
 
 // this
 const myObject = {
-  foo: "bar",
-  func: () => {
-    const that = this
-    console.log("outer func:  this.foo = " + this.foo)
-    console.log("outer func:  that.foo = " + that.foo)
-    (function() {
-        console.log("inner func:  this.foo = " + this.foo)
-        console.log("inner func:  that.foo = " + that.foo)
-    }())
-  }
+	foo: 'bar',
+	func: () => {
+		const that = this
+		console.log('outer func:  this.foo = ' + this.foo)
+		console.log('outer func:  that.foo = ' + that.foo)
+		(() => {
+			console.log('inner func:  this.foo = ' + this.foo)
+			console.log('inner func:  that.foo = ' + that.foo)
+		})()
+	}
 }
 
 myObject.func()
@@ -32,19 +32,26 @@ outFunc()
  * that returns a boolean indicating whether or not a string is a palindrome.
  */
 function isPalindrome(str) {
-  return str.split('').reverse().join('') === str
+	return str.split('').reverse().join('') === str
 }
 
 // deepcopy
 function deepCopy(obj) {
-  const cloneObj = {}
-  let key
-  for (key in obj) {
-    if (obj && obj.hasOwnProperty(key) && typeof obj === 'object') {
-      cloneObj[key] = deepCopy(obj[key])
-    }
-  }
-  return cloneObj
+	const cloneObj = {}
+	let key
+	for (key in obj) {
+	  if (obj && obj.hasOwnProperty(key) && typeof obj === 'object') {
+	    cloneObj[key] = deepCopy(obj[key])
+	  }
+	}
+	return cloneObj
 }
 
 // bind
+function list() {
+	return Array.prototype.slice.call(arguments)
+}
+
+const plusBase = list.bind(undefined, 11)
+const plusRes = plusBase()
+const plusRes2 = plusBase(4, 5, 6)

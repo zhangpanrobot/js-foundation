@@ -4,7 +4,10 @@ const duplicateArrNested = [[1, 2], 3, 4, 5, 3, [1, 2]]
 function uniq(arr) {
 	return arr.filter((item, index, currentArr) => {
 		if (Array.isArray(item)) {
-			// TODO: 
+			// TODO:
+			item.forEach((item) => {
+
+			})
 		} else {
 			return currentArr.indexOf(item) === index
 		}
@@ -13,6 +16,7 @@ function uniq(arr) {
 
 function shallowEqual(obj1, obj2) {
 	if (!obj1 || !obj2 || typeof obj1 !== 'object' || typeof obj2 !== 'object') return false
+	// flat array
 	if (Array.isArray(obj1) && Array.isArray(obj1)) {
 		return obj1.every((item, index) => item === obj2[index])
 	}
