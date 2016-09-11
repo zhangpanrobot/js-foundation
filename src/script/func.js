@@ -57,10 +57,15 @@ const plusRes = plusBase()
 const plusRes2 = plusBase(4, 5, 6)
 
 // execute fn specified time
-function wrapper(fn, time) {
+function wrapper(fn, time, cb) {
 	return function() {
-		if (time < 0) return
-		time--
-		return fn.apply(this, arguments)
+		if (time-- < 0) return
+		fn.apply(this, arguments)
+		if (time <= 0) cb && cb.apply(this, arguments)
 	}
+}
+
+function voidReplace() {
+	let undefined = 10
+	console.log(undefined)
 }
