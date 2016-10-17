@@ -69,3 +69,19 @@ function voidReplace() {
 	let undefined = 10
 	console.log(undefined)
 }
+
+// from winter
+function currying(func) {
+    return function()
+    {
+        if(arguments.length<func.length)
+        {
+            var args=arguments;
+            var retarg=new Array(func.length-arguments.length);
+            for(var i=0;i<retarg.length;i++)retarg[i]="_"+i;
+            eval("var ret=function("+retarg+"){return args.callee.apply(this,Array.prototype.slice.call(args).concat(Array.prototype.slice.call(arguments)));}");
+            return currying(ret);
+        }
+        else return func.apply(this,arguments);
+    }
+}
