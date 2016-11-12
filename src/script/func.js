@@ -69,3 +69,44 @@ function voidReplace() {
 	let undefined = 10
 	console.log(undefined)
 }
+
+
+// 给本地存json做多项计数，给定localStorage key, 给json添加key,并累加，当达到某个值时不再执行
+/**
+ * localStorageKey json名
+ * jsonKey, 要计数的key
+ * limit, 计数限制
+ */
+function getLocalJSON () {
+	if (!window.localStorage) return false;
+	var localStr = localStorage.getItem(localStorageKey);
+	if (typeof localStr === 'string' && !localStr.length || localStr === null) return 0;
+	if (localStr && localStr.length && localStr[0] === '{') {
+		return JSON.parse(localStr);
+	}
+	return false;
+}
+
+function setLocalPMS (localStorageKey, JSONKey, limit) {
+	var localPMS = getLocalJSON(localStorageKey);
+	// 执行， 不计数
+	if (localPMS === false) return 0;
+	if (localPMS === 0) {
+		// 初始化
+		localPMS = {};
+		localPMS[key] = 1;
+		localStorage.setItem(localStorageKey, JSON.stringify(localPMS));
+	}
+	if (localPMS && +localPMS[JSONKey] < limit) {
+		localPMS[JSONKey] = +localPMS[JSONKey] + 1;
+		localStorage.setItem(localStorageKey, JSON.stringify(localPMS));
+	} else if (localPMS && !localPMS[JSONKey]) {
+		localPMS[JSONKey] = 1;
+		localStorage.setItem(localStorageKey, JSON.stringify(localPMS));
+	} else {
+		// 不再执行
+		return 2;
+	}
+	// 执行并计数
+	return 1;
+}
