@@ -126,3 +126,12 @@ function currying(func) {
         else return func.apply(this,arguments);
     }
 }
+
+// callcc from 'http://stackoverflow.com/questions/14019341/whats-the-difference-between-a-continuation-and-a-callback'
+function callcc(f) {
+    var cc = function (x) {
+        cc = x;
+    };
+    f(cc);
+    return cc;
+}
