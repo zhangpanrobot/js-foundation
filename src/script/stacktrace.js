@@ -20,4 +20,22 @@ Object.defineProperty(window, '__line', {
 	}
 });
 
-document.write(__line);
+Object.defineProperty(window, '__function', {
+    get: function() {
+        return __stack[1].getFunctionName();
+    }
+});
+
+Object.defineProperty(window, '__stackObj', {
+    get: function() {
+        return __stack;
+    }
+});
+
+function foo () {
+    document.write(__line);
+    document.write(__function);
+    console.log(__stackObj);
+}
+
+foo()
