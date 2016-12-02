@@ -135,3 +135,22 @@ function callcc(f) {
     f(cc);
     return cc;
 }
+
+// call these three function, tell when it's called
+function testA () {
+	return 1;
+}
+
+function testB () {
+	return 2;
+}
+
+function testC () {
+	return 3;
+}
+/**
+ * tell that which function is called and when it is called success
+ */
+function callSome () {
+	
+}
