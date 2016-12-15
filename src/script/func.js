@@ -10,6 +10,10 @@ const closure = () => {
 }
 closure()
 
+function toArray (obj) {
+	return Array.prototype.slice.call(obj, 0);
+}
+
 // this
 const myObject = {
 	foo: 'bar',
@@ -167,7 +171,28 @@ function testC() {
 }
 /**
  * tell that which function is called and when it is called success
+ * consider async function
  */
-function callSome() {
+function callSome(f1, f2) {
+	return function () {
+		var args = toArray(arguments);
+		f.apply(this, args);
+		console.log(f.name);
+	}
+}
 
+var oddList = [1, 3, 5, 7, 9];
+
+var oddList = []
+for(var i = 1; i <= 10; i++) {
+    if (i % 2) oddList.push(i);
+}
+
+function smaller (x, y) {
+    return x < y ? x : y;
+}
+
+// add tow bigger item
+function biggerTwoSum (x, y, z) {
+    return x + y + z - smaller(smaller(x, y), z)
 }
