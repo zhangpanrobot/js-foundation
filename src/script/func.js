@@ -192,7 +192,19 @@ function smaller (x, y) {
     return x < y ? x : y;
 }
 
+function toArray (obj) {
+	return Array.prototype.slice.call(obj, 0);
+}
+
+function reduce(fn){
+    return function(...args){
+        return args.reduce(fn.bind(this));
+    }
+}
+
+var smallerBind = reduce(smaller);
+
 // add tow bigger item
 function biggerTwoSum (x, y, z) {
-    return x + y + z - smaller(smaller(x, y), z)
+    return x + y + z - smallerBind(x, y, z)
 }
